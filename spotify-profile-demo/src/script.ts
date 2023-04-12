@@ -90,4 +90,5 @@ function populateUI(profile: any) {
     document.getElementById("url")!.innerText = profile.href;
     document.getElementById("url")!.setAttribute("href", profile.href);
     document.getElementById("imgUrl")!.innerText = profile.images[0]?.url ?? '(no profile image)';
+    document.getElementById("followers")!.setAttribute("total", profile.followers.total);
 }
