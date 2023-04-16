@@ -104,12 +104,7 @@ function populateUI(profile: any) {
     document.getElementById("country")!.innerText = profile.country;
     document.getElementById("product")!.innerText = profile.product;
     document.getElementById("type")!.innerText = profile.type;
-
-   
-    
-    
-
-   
+ 
 }
 function populateTracks(tracks: any) {
     for (let i = 0; i < 20; i++) {
@@ -119,7 +114,7 @@ function populateTracks(tracks: any) {
         
         songNameElement.innerText = tracks.items[i].name;
         songImg.src = tracks.items[i].album.images[1].url;
-        
+
         songContainer.appendChild(songImg);
         songContainer.appendChild(songNameElement); 
         
