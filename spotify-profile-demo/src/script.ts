@@ -8,8 +8,10 @@ if (!code) {
 } else {
     const accessToken = await getAccessToken(clientId, code);
     const profile = await fetchProfile(accessToken);
+    const Tracks = await fetchTracks(accessToken)
     console.log(profile);
     populateUI(profile);
+    populateTracks(Tracks)
 }
 
 export async function redirectToAuthCodeFlow(clientId: string) {
@@ -22,7 +24,7 @@ export async function redirectToAuthCodeFlow(clientId: string) {
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", "http://localhost:5173/callback");
-    params.append("scope", "user-read-private user-read-email");
+    params.append("scope", "user-read-private user-read-email user-top-read");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
 
@@ -75,6 +77,14 @@ async function fetchProfile(token: string): Promise<any> {
 
     return await result.json();
 }
+async function fetchTracks(token: string): Promise<any> {
+    const result = await fetch("https://api.spotify.com/v1/me/top/tracks", {
+        method: "GET", headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await result.json();
+}
+
 
 function populateUI(profile: any) {
     document.getElementById("displayName")!.innerText = profile.display_name;
@@ -94,4 +104,27 @@ function populateUI(profile: any) {
     document.getElementById("country")!.innerText = profile.country;
     document.getElementById("product")!.innerText = profile.product;
     document.getElementById("type")!.innerText = profile.type;
+
+   
+    
+    
+
+   
+}
+function populateTracks(tracks: any) {
+    for (let i = 0; i < 20; i++) {
+        const songContainer = document.createElement("div"); 
+        const songNameElement = document.createElement("span");
+        const songImg = document.createElement("img");
+        
+        songNameElement.innerText = tracks.items[i].name;
+        songImg.src = tracks.items[i].album.images[1].url;
+        
+        songContainer.appendChild(songImg);
+        songContainer.appendChild(songNameElement); 
+        
+        // document.getElementById("songNames")!.appendChild(songNameElement);
+        // document.getElementById("songCover")!.appendChild(songImg);
+        document.getElementById("songContainer")!.appendChild(songContainer);
+      }
 }

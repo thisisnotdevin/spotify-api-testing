@@ -5,16 +5,20 @@
   <meta charset="utf-8">
   <title>My Spotify Profile</title>
   <script src="./src/script.ts" type="module"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Display your Spotify profile data</h1>
+  <h1 class="header">Display your Spotify profile data</h1>
 
   <section id="profile">
-    <h2>Logged in as <span id="displayName"></span></h2>
-    <span id="avatar"></span>
+    <div class="profile-left">
+      <span id="avatar"></span>
+      <h2>Logged in as <span class="displayName" id="displayName"></span></h2>
+     
+    </div>
+   <div class="profile-right">
     <ul>
-
       <li>Email: <span id="email"></span></li>
       <li>Spotify URI: <a id="uri" href="#"></a></li>
       <li>Link: <a id="url" href="#"></a></li>
@@ -24,7 +28,16 @@
       <li>Product: <span id="product"></span></li>
       <li>Type: <span id="type"></span></li>
     </ul>
+   </div>
+    
   </section>
+  
+    <h2 class="fav-songs-header">Favorite Songs</h2>
+
+  <div class="songs">
+    <div class="song-container" id="songContainer"></div>
+  </div>
+
 </body>
 
 </html>
