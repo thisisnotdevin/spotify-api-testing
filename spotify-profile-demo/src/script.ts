@@ -137,19 +137,19 @@ function populateTracks(tracks: any) {
           audioSource.src = tracks.items[i].preview_url;
         }
         
-       
-        playButton.innerText = "Play Preview";
+        if (!tracks.items[i].preview_url) {
+            playButton.innerText = "Preview not available";
+        }
+        else {
+            playButton.innerText = "Play Preview";
+        }
+
+        
         playButton.onclick = function() {
-          if (!tracks.items[i].preview_url) {
-            alert("Preview not available for song: " + tracks.items[i].name);
-            return;
-          }
           playSong(audioPlayer);
         };
       
         artistNameElement.innerText = tracks.items[i].album.artists[0].name;
-        
-      
   
         audioPlayer.appendChild(audioSource);
       
