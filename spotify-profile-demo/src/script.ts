@@ -107,20 +107,59 @@ function populateUI(profile: any) {
     document.getElementById("type")!.innerText = profile.type;
  
 }
+let currentlyPlaying: HTMLAudioElement | null = null;
+
+function playSong(audioPlayer: HTMLAudioElement) {
+  if (currentlyPlaying && currentlyPlaying !== audioPlayer) {
+    currentlyPlaying.pause();
+    currentlyPlaying.currentTime = 0;
+  }
+  currentlyPlaying = audioPlayer;
+  audioPlayer.play();
+  audioPlayer.volume = 0.2;
+}
+
 function populateTracks(tracks: any) {
     for (let i = 0; i < 20; i++) {
         const songContainer = document.createElement("div"); 
         const songNameElement = document.createElement("span");
         const songImg = document.createElement("img");
+        const audioPlayer = document.createElement("audio");
+        const audioSource = document.createElement("source");
+        const playButton = document.createElement("button");
+      
         
         songNameElement.innerText = tracks.items[i].name;
         songImg.src = tracks.items[i].album.images[1].url;
-
+      
+        if (tracks.items[i].preview_url) {
+          audioSource.src = tracks.items[i].preview_url;
+        }
+      
+       
+        playButton.innerText = "Play Preview";
+        playButton.onclick = function() {
+          if (!tracks.items[i].preview_url) {
+            alert("Preview not available for song: " + tracks.items[i].name);
+            return;
+          }
+          playSong(audioPlayer);
+        };
+      
+       
+        songContainer.appendChild(playButton);
+      
+  
+        audioPlayer.appendChild(audioSource);
+      
+       
         songContainer.appendChild(songImg);
-        songContainer.appendChild(songNameElement); 
-        
-        // document.getElementById("songNames")!.appendChild(songNameElement);
-        // document.getElementById("songCover")!.appendChild(songImg);
+        songContainer.appendChild(songNameElement);
+        songContainer.appendChild(audioPlayer);
+      
+      
         document.getElementById("songContainer")!.appendChild(songContainer);
       }
+      
+      
 }
