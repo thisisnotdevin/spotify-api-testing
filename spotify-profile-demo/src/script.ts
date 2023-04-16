@@ -9,7 +9,8 @@ if (!code) {
     const accessToken = await getAccessToken(clientId, code);
     const profile = await fetchProfile(accessToken);
     const Tracks = await fetchTracks(accessToken)
-    console.log(profile);
+    // console.log(profile);
+    console.log(Tracks);
     populateUI(profile);
     populateTracks(Tracks)
 }
