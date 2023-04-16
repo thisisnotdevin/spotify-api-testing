@@ -123,6 +123,7 @@ function populateTracks(tracks: any) {
     for (let i = 0; i < 20; i++) {
         const songContainer = document.createElement("div"); 
         const songNameElement = document.createElement("span");
+        const artistNameElement = document.createElement("p");
         const songImg = document.createElement("img");
         const audioPlayer = document.createElement("audio");
         const audioSource = document.createElement("source");
@@ -135,7 +136,7 @@ function populateTracks(tracks: any) {
         if (tracks.items[i].preview_url) {
           audioSource.src = tracks.items[i].preview_url;
         }
-      
+        
        
         playButton.innerText = "Play Preview";
         playButton.onclick = function() {
@@ -146,18 +147,17 @@ function populateTracks(tracks: any) {
           playSong(audioPlayer);
         };
       
-       
-        songContainer.appendChild(playButton);
+        artistNameElement.innerText = tracks.items[i].album.artists[0].name;
+        
       
   
         audioPlayer.appendChild(audioSource);
       
-       
+        songContainer.appendChild(audioPlayer);
         songContainer.appendChild(songImg);
         songContainer.appendChild(songNameElement);
-        songContainer.appendChild(audioPlayer);
-      
-      
+        songContainer.appendChild(artistNameElement);
+        songContainer.appendChild(playButton);
         document.getElementById("songContainer")!.appendChild(songContainer);
       }
       
