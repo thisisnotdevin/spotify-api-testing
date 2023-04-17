@@ -1,8 +1,18 @@
 # spotify-api-testing
 
 ## Notes
+![image](https://user-images.githubusercontent.com/66978846/232624859-5c8a8e89-8648-47fa-8f76-f8ae38ba6494.png)
 
-![image](https://user-images.githubusercontent.com/66978846/232128395-ec1a0a48-339d-4d6a-9ea8-f4af06c7fd64.png)
+Tools:
+
+  <a href="">
+    <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma logo">
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/badge/Spotify-1ED760?&style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify logo">
+  </a>
+
+
 
 ### Requesting top track data from spotify
 
