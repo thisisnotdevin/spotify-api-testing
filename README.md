@@ -6,12 +6,10 @@
 
 ### Requesting top track data from spotify
 
-We're going to use the response from the getAccessToken() function above to securely request your top tracks. This assumes you added the user-top-read scope during the Authentication Phase.
+We're going to use the response from the `getAccessToken()` function above to securely request your top tracks. This assumes you added the user-top-read scope during the Authentication Phase.
 
-## Important code 
-
-
-1. This code exports an asynchronous function `getTopTracks` that sends an HTTP request to the Spotify API to retrieve a user's top tracks using an access token retrieved from another function getAccessToken.
+## `getTopTracks` function
+This code exports an asynchronous function `getTopTracks` that sends an HTTP request to the Spotify API to retrieve a user's top tracks using an access token retrieved from another function getAccessToken.
 
 ```typescript
 const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`
@@ -26,8 +24,8 @@ export const getTopTracks = async () => {
   })
 }
 ```
-
-2. These two codes define two asynchronous functions, `fetchProfile` and `fetchTracks`, that send HTTP GET requests to the Spotify API to retrieve the user's profile and top tracks data respectively, using an access token passed as an argument. The response data is returned in JSON format.
+## `Spotify API requests`
+These two codes define two asynchronous functions, `fetchProfile` and `fetchTracks`, that send HTTP GET requests to the Spotify API to retrieve the user's profile and top tracks data respectively, using an access token passed as an argument. The response data is returned in JSON format.
 
 ```typescript
 async function fetchProfile(token: string): Promise<any> {
@@ -46,8 +44,8 @@ async function fetchTracks(token: string): Promise<any> {
     return await result.json();
 }
 ```
-
-3. This code exports an asynchronous function `redirectToAuthCodeFlow` that generates a code verifier and challenge, stores the verifier in local storage, appends query parameters to a URL, and redirects the user's browser to the Spotify Authorization endpoint for the authorization code flow with the generated URL parameters appended as query string parameters. The user is prompted to log in and authorize the requested permissions, and if successful, is redirected to a specified callback URL with the authorization code as a query parameter.
+## `Spotify authorization code flow`
+This code exports an asynchronous function `redirectToAuthCodeFlow` that generates a code verifier and challenge, stores the verifier in local storage, appends query parameters to a URL, and redirects the user's browser to the Spotify Authorization endpoint for the authorization code flow with the generated URL parameters appended as query string parameters. The user is prompted to log in and authorize the requested permissions, and if successful, is redirected to a specified callback URL with the authorization code as a query parameter.
 
 ```typescript
 export async function redirectToAuthCodeFlow(clientId: string) {
