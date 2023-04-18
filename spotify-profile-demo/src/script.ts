@@ -10,7 +10,7 @@ if (!code) {
     const profile = await fetchProfile(accessToken);
     const Tracks = await fetchTracks(accessToken)
     // console.log(profile);
-    console.log(Tracks);
+    // console.log(Tracks);
     populateUI(profile);
     populateTracks(Tracks)
 }
@@ -78,6 +78,7 @@ async function fetchProfile(token: string): Promise<any> {
 
     return await result.json();
 }
+
 async function fetchTracks(token: string): Promise<any> {
     const result = await fetch("https://api.spotify.com/v1/me/top/tracks", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
@@ -105,8 +106,8 @@ function populateUI(profile: any) {
     document.getElementById("country")!.innerText = profile.country;
     document.getElementById("product")!.innerText = profile.product;
     document.getElementById("type")!.innerText = profile.type;
- 
 }
+
 let currentlyPlaying: HTMLAudioElement | null = null;
 
 function playSong(audioPlayer: HTMLAudioElement) {
@@ -119,47 +120,51 @@ function playSong(audioPlayer: HTMLAudioElement) {
   audioPlayer.volume = 0.2;
 }
 
-function populateTracks(tracks: any) {
-    for (let i = 0; i < 20; i++) {
-        const songContainer = document.createElement("div"); 
-        const songNameElement = document.createElement("span");
-        const artistNameElement = document.createElement("p");
-        const songImg = document.createElement("img");
-        const audioPlayer = document.createElement("audio");
-        const audioSource = document.createElement("source");
-        const playButton = document.createElement("button");
-      
-        
-        songNameElement.innerText = tracks.items[i].name;
-        songImg.src = tracks.items[i].album.images[1].url;
-      
-        if (tracks.items[i].preview_url) {
-          audioSource.src = tracks.items[i].preview_url;
-        }
-        
-        if (!tracks.items[i].preview_url) {
-            playButton.innerText = "Preview not available";
-        }
-        else {
-            playButton.innerText = "Play Preview";
-        }
+function createSongContainer(track: any) {
+    const songContainer = document.createElement("div"); 
 
-        
+    const songNameElement = document.createElement("span");
+    songNameElement.innerText = track.name;
+
+    const artistNameElement = document.createElement("p");
+    artistNameElement.innerText = track.album.artists[0].name;
+
+    const songImg = document.createElement("img");
+    songImg.src = track.album.images[1].url;
+    songImg.style.objectFit = "cover";
+
+    const audioPlayer = document.createElement("audio");
+    const audioSource = document.createElement("source");
+    if (track.preview_url) {
+        audioSource.src = track.preview_url;
+    }
+    audioPlayer.appendChild(audioSource);
+
+    const playButton = document.createElement("button");
+    if (!track.preview_url) {
+        playButton.innerText = "Preview not available";
+    }
+    else {
+        playButton.innerText = "Play Preview";
         playButton.onclick = function() {
-          playSong(audioPlayer);
+            playSong(audioPlayer);
         };
-      
-        artistNameElement.innerText = tracks.items[i].album.artists[0].name;
-  
-        audioPlayer.appendChild(audioSource);
-      
-        songContainer.appendChild(audioPlayer);
-        songContainer.appendChild(songImg);
-        songContainer.appendChild(songNameElement);
-        songContainer.appendChild(artistNameElement);
-        songContainer.appendChild(playButton);
-        document.getElementById("songContainer")!.appendChild(songContainer);
-      }
-      
-      
+    }
+
+    songContainer.appendChild(audioPlayer);
+    songContainer.appendChild(songImg);
+    songContainer.appendChild(songNameElement);
+    songContainer.appendChild(artistNameElement);
+    songContainer.appendChild(playButton);
+
+    return songContainer;
+}
+
+function populateTracks(tracks: any) {
+    const songContainer = document.getElementById("songContainer");
+    for (let i = 0; i < 20; i++) {
+        const song = tracks.items[i];
+        const songContainerElement = createSongContainer(song);
+        songContainer!.appendChild(songContainerElement);
+    }
 }
