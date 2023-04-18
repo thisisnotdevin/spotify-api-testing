@@ -9,6 +9,7 @@ if (!code) {
     const accessToken = await getAccessToken(clientId, code);
     const profile = await fetchProfile(accessToken);
     const Tracks = await fetchTracks(accessToken)
+    
     // console.log(profile);
     // console.log(Tracks);
     populateUI(profile);
@@ -80,14 +81,14 @@ async function fetchProfile(token: string): Promise<any> {
 }
 
 async function fetchTracks(token: string): Promise<any> {
-    const result = await fetch("https://api.spotify.com/v1/me/top/tracks", {
+    const result = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=40&offset=0", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
 
     return await result.json();
 }
 
-
+  
 function populateUI(profile: any) {
     document.getElementById("displayName")!.innerText = profile.display_name;
     if (profile.images[0]) {
@@ -121,8 +122,8 @@ function playSong(audioPlayer: HTMLAudioElement) {
 }
 
 function createSongContainer(track: any) {
-    const songContainer = document.createElement("div"); 
-
+    const songContainer = document.createElement("div");
+  
     const songNameElement = document.createElement("span");
     songNameElement.innerText = track.name;
 
@@ -162,7 +163,7 @@ function createSongContainer(track: any) {
 
 function populateTracks(tracks: any) {
     const songContainer = document.getElementById("songContainer");
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 40; i++) {
         const song = tracks.items[i];
         const songContainerElement = createSongContainer(song);
         songContainer!.appendChild(songContainerElement);
