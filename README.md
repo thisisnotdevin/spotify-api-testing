@@ -1,5 +1,7 @@
 # spotify-api-testing
 
+returns users top tracks
+
 ## Notes
 ![image](https://user-images.githubusercontent.com/66978846/232624859-5c8a8e89-8648-47fa-8f76-f8ae38ba6494.png)
 
