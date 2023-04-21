@@ -63,6 +63,8 @@ async function fetchTracks(token: string): Promise<any> {
 ## `Spotify authorization code flow`
 This code exports an asynchronous function `redirectToAuthCodeFlow` that generates a code verifier and challenge, stores the verifier in local storage, appends query parameters to a URL, and redirects the user's browser to the Spotify Authorization endpoint for the authorization code flow with the generated URL parameters appended as query string parameters. The user is prompted to log in and authorize the requested permissions, and if successful, is redirected to a specified callback URL with the authorization code as a query parameter.
 
+The redirect-uri is part of the auth flow, it will redirect the user back to the application with the original url plus some sensitive information on the URL. The `scope` is the Authorization scopes that is needed to access some of the user's data, different reference requires different scopes. You could add all of them or just the ones you need. 
+
 ```typescript
 export async function redirectToAuthCodeFlow(clientId: string) {
     const verifier = generateCodeVerifier(128);
