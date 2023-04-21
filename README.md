@@ -1,6 +1,10 @@
 # spotify-api-testing
 
-returns users top tracks
+[Spotify web api](https://developer.spotify.com/documentation/web-api)
+
+This project's objective is to develop a thorough understanding of how the Spotify API should be used. The goal of this project is to create a Spotify Top Tracks project that retrieves and shows a user's most-heard songs over the previous six months. Users can refresh their memories of their favorite musical compositions from the previous six months by cloning this project. The project aims to improve coding abilities as well as knowledge of additional Spotify API requirements.
+
+In this project, students will learn how to create access tokens, configure authentication, and use those tokens to send requests to the Spotify API. Along with understanding the various access permissions needed for accessing Spotify data and features, they will learn how to interpret the responses and error messages returned by the API.
 
 ## Notes
 ![image](https://user-images.githubusercontent.com/66978846/232624859-5c8a8e89-8648-47fa-8f76-f8ae38ba6494.png)
